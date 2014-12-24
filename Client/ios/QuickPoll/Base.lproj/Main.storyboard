@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vfB-5M-LK4">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="LbX-FV-qfF">
+            <objects>
+                <navigationController id="vfB-5M-LK4" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="79F-qI-Cab">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="3mV-C7-Wci"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uy7-hw-R1J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-326" y="-376"/>
+        </scene>
+        <!--Join Presentation-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="MainViewController" customModule="QuickPoll" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Presentation Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ML6-IK-tkM">
+                                <rect key="frame" x="14" y="216" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="DuD-pC-GD7"/>
+                                    <constraint firstAttribute="width" constant="568" id="MJn-KF-nLO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect To Server" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEy-71-e33">
+                                <rect key="frame" x="14" y="136" width="568" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Dor-fT-sWH"/>
+                                    <constraint firstAttribute="width" constant="568" id="w6d-B5-64c"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter The Code Provided" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ifH-Md-7PO">
+                                <rect key="frame" x="19" y="245" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="127.0.0.1:8000" borderStyle="roundedRect" placeholder="Enter IP Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vgt-AS-mpX">
+                                <rect key="frame" x="19" y="165" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lg2-DU-515">
+                                <rect key="frame" x="281" y="306" width="35" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="INt-9U-ACE"/>
+                                    <constraint firstAttribute="width" constant="35" id="KfZ-j4-dUu"/>
+                                </constraints>
+                                <state key="normal" title="Join">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="WKD-q8-LJe" kind="show" id="HMm-0W-8i9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ifH-Md-7PO" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="3" id="JNv-rT-jif"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ifH-Md-7PO" secondAttribute="trailing" constant="-3" id="JaF-g0-sL7"/>
+                            <constraint firstAttribute="centerY" secondItem="ML6-IK-tkM" secondAttribute="centerY" constant="73.5" id="Jfn-jn-bjY"/>
+                            <constraint firstAttribute="centerX" secondItem="Lg2-DU-515" secondAttribute="centerX" constant="1.5" id="KWo-sQ-wox"/>
+                            <constraint firstItem="vgt-AS-mpX" firstAttribute="top" secondItem="aEy-71-e33" secondAttribute="bottom" constant="8" id="R14-hj-v14"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vgt-AS-mpX" secondAttribute="trailing" constant="-3" id="Sc5-0l-vuD"/>
+                            <constraint firstItem="ifH-Md-7PO" firstAttribute="top" secondItem="ML6-IK-tkM" secondAttribute="bottom" constant="8" id="TD5-Cq-MZd"/>
+                            <constraint firstItem="vgt-AS-mpX" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="3" id="fQl-Ou-u1p"/>
+                            <constraint firstAttribute="centerX" secondItem="ML6-IK-tkM" secondAttribute="centerX" constant="2" id="h4N-cW-jJc"/>
+                            <constraint firstAttribute="centerX" secondItem="aEy-71-e33" secondAttribute="centerX" constant="2" id="lZg-3W-HuI"/>
+                            <constraint firstAttribute="centerY" secondItem="Lg2-DU-515" secondAttribute="centerY" constant="-21" id="nRd-GC-0cm"/>
+                            <constraint firstAttribute="centerY" secondItem="aEy-71-e33" secondAttribute="centerY" constant="153.5" id="qld-5i-x0E"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Join Presentation" id="5iU-jL-gA1"/>
+                    <keyCommands/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="255" y="451"/>
+        </scene>
+        <!--Poll View Controller-->
+        <scene sceneID="hgo-FO-32E">
+            <objects>
+                <viewController id="WKD-q8-LJe" customClass="PollViewController" customModule="QuickPoll" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IQK-Lh-mPQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="ufB-ms-Tdf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nhr-FP-UWd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-qv-Wwz">
+                                <rect key="frame" x="274" y="525" width="53" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="53" id="cls-T1-RUp"/>
+                                    <constraint firstAttribute="height" constant="30" id="fok-zd-iD0"/>
+                                </constraints>
+                                <state key="normal" title="Refresh">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Poll Closed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udO-6n-1u4">
+                                <rect key="frame" x="16" y="137" width="568" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="imr-bP-JDi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No question available at the moment. Enjoy the presentation... " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0PT-NZ-bYI">
+                                <rect key="frame" x="16" y="206" width="568" height="90"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="90" id="YNc-Bx-EbS"/>
+                                    <constraint firstAttribute="width" constant="568" id="vkN-Mb-Po1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer here when needed" textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pWn-qN-Mhm">
+                                <rect key="frame" x="16" y="304" width="568" height="53"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="568" id="dv9-GV-NuI"/>
+                                    <constraint firstAttribute="height" constant="53" id="z2g-zu-itg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" label=""/>
+                        <constraints>
+                            <constraint firstItem="pWn-qN-Mhm" firstAttribute="top" secondItem="0PT-NZ-bYI" secondAttribute="bottom" constant="8" id="3mx-a6-sMW"/>
+                            <constraint firstItem="0PT-NZ-bYI" firstAttribute="leading" secondItem="nhr-FP-UWd" secondAttribute="leadingMargin" id="7Zr-HP-ONK"/>
+                            <constraint firstAttribute="centerX" secondItem="zxB-qv-Wwz" secondAttribute="centerX" constant="-0.5" id="KXg-CL-H4E"/>
+                            <constraint firstItem="udO-6n-1u4" firstAttribute="trailing" secondItem="nhr-FP-UWd" secondAttribute="trailingMargin" id="WPF-Ql-4d0"/>
+                            <constraint firstAttribute="centerY" secondItem="zxB-qv-Wwz" secondAttribute="centerY" constant="-240" id="bKO-Jm-lHj"/>
+                            <constraint firstItem="0PT-NZ-bYI" firstAttribute="trailing" secondItem="nhr-FP-UWd" secondAttribute="trailingMargin" id="bdI-9M-vKQ"/>
+                            <constraint firstAttribute="centerX" secondItem="udO-6n-1u4" secondAttribute="centerX" id="blW-Ih-fnh"/>
+                            <constraint firstAttribute="centerY" secondItem="udO-6n-1u4" secondAttribute="centerY" constant="143" id="osd-JR-Yv3"/>
+                            <constraint firstItem="udO-6n-1u4" firstAttribute="leading" secondItem="nhr-FP-UWd" secondAttribute="leadingMargin" id="ptY-lr-sly"/>
+                            <constraint firstItem="pWn-qN-Mhm" firstAttribute="leading" secondItem="nhr-FP-UWd" secondAttribute="leadingMargin" id="sCG-0o-Sjp"/>
+                            <constraint firstAttribute="centerY" secondItem="0PT-NZ-bYI" secondAttribute="centerY" constant="49" id="tQm-Wp-lN5"/>
+                            <constraint firstItem="pWn-qN-Mhm" firstAttribute="trailing" secondItem="nhr-FP-UWd" secondAttribute="trailingMargin" id="yYs-W5-Qnz"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8fh-EO-zDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1063" y="451"/>
+        </scene>
+    </scenes>
+</document>
