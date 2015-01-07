@@ -10,12 +10,16 @@ import Foundation
 import UIKit
 
 
-class PollViewController: UIViewController {
+class PollViewController: UIViewController, UITextFieldDelegate {
 
     var cl : PollSocket!
+    @IBOutlet weak var questionText: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        questionText.delegate = self
+        questionText.returnKeyType = .Done
         
         cl = PollSocket()
         cl.addr = "localhost"
@@ -41,6 +45,13 @@ class PollViewController: UIViewController {
         
         
     }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
