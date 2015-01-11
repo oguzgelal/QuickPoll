@@ -1,7 +1,7 @@
 
 var pollServer = new PollServer();
 var connection = new ConnectionHandler();
-var polls = [];
+var polls = {};
 
 function sleep(milliseconds) {
 	var start = new Date().getTime();
@@ -12,30 +12,33 @@ function sleep(milliseconds) {
 	}
 }
 
-function Poll(){
-	// Static
-	var title = "";
-	var code = "";
-	// Dynamic
-	var status = "close";
-	var quesion = "";
-	var answers = [];
-
-	this.addNew = function(title, code){
+var poll = {
+	title : "",
+	code : "",
+	status : "close",
+	quesion : "",
+	answers : [],
+	addNew : function(title, code){
 		this.title = title;
 		this.code = code;
 		console.log("Poll added ("+code+")");
-	}
-
-	this.toString = function(){
+	},
+	toString : function(){
 		var str = "POLL "+this.code+" :\n";
 		str += "Title : "+this.title+" \n";
 		str += "Status : "+this.status+" \n";
 		if (this.status == "open"){
 			str += "Current Question : "+this.question+" \n";
-			for(var i = 0; i < this.answers; i++){ str += "Answer("+i+") : "+this.answers[i]+" \n"; }
+			for(var i = 0; i < this.answers; i++){
+				str += "Answer("+i+") : "+this.answers[i]+" \n";
+			}
 		}
 		console.log(str);
+	},
+	reportAnswers: function(){
+		for(var i = 0; i < this.answers.length; i++){
+			console.log(this.answers[i]);
+		}
 	}
 }
 
@@ -66,7 +69,7 @@ function ConnectionHandler(){
 	this.connect = function(socket){
 		socket.setEncoding("utf8");
 		connection.connections.push(socket);
-		connection.send(socket, "connected");
+		//connection.send(socket, "connected");
 		this.listen(socket);
 	}
 
@@ -116,8 +119,8 @@ function ConnectionHandler(){
 
 	// Send client a message
 	this.send = function(socket, message){
-		socket.write(""+message+"#");
-		console.log("s->c"+REQ.connIndex(socket)+" : "+message+"#");
+		socket.write(""+message);
+		console.log("s->c"+REQ.connIndex(socket)+" : "+message);
 	}
 
 	// Handle server side commands
@@ -125,29 +128,69 @@ function ConnectionHandler(){
 		// Remove the new line break at the end (regex wont work for some reason)
 		message = message.substring(0,message.length-2);
 		var messageSpl = message.split(".");
+		// -> echo
 		if (messageSpl[0]=="echo"){
 			console.log(message);
 		}
+		// ->
 		else if (messageSpl[0]==""){
 		}
+		// -> polls
 		else if (messageSpl[0]=="polls"){
 			if (polls.length == 0){ console.log("s -> No polls available"); }
 			else{
-				for(var i = 0; i < polls.length; i++){
-					if (messageSpl[1]=="a"){ polls.toString(); }
-					else { console.log("s -> Title : "+polls[i].title+" | Code : "+polls[i].code); }
+				for(var code in polls){
+					if (messageSpl[1]=="a"){ polls[code].toString(); }
+					else { console.log("s -> Title : "+polls[code].title+" | Code : "+polls[code].code); }
 				}
 			}
 		}
+		// -> add
 		else if (messageSpl[0]=="add"){
 			var title = messageSpl[1];
 			var courseCode = messageSpl[2];
-			var poll = new Poll();
-			poll.addNew(title, courseCode);
-			polls.push(poll);
+			polls[courseCode] = poll;
+			polls[courseCode].addNew(title, courseCode);
 		}
+		// -> open
 		else if (messageSpl[0]=="open"){
+			var code = messageSpl[1];
+			if (polls[code]){
+				polls[code].question = messageSpl[2];
+				polls[code].status = "open";
+				polls[code].answers = [];
+			}
+			else{ console.log("Error : This poll cannot be found."); }
 		}
+		// -> answer (For Debug)
+		else if (messageSpl[0]=="answer"){
+			var code = messageSpl[1];
+			if (polls[code]){
+				if (polls[code].status == "open"){
+					polls[code].answers.push(messageSpl[2]);
+				}
+				else{ console.log("Error : Poll not open"); }	
+			}
+			else{ console.log("Error : This poll cannot be found."); }
+		}
+		// -> close
+		else if (messageSpl[0]=="close"){
+			var code = messageSpl[1];
+			if (polls[code]){
+				polls[code].status = "close";
+				polls[code].question = "";
+			}
+			else{ console.log("Error : This poll cannot be found."); }
+		}
+		// -> report
+		else if (messageSpl[0]=="report"){
+			var code = messageSpl[1];
+			if (polls[code]){
+				polls[code].reportAnswers();
+			}
+			else{ console.log("Error : This poll cannot be found."); }
+		}
+		else{ console.log("cmderr"); }
 	}
 
 	// Handle messages from clients
@@ -157,11 +200,31 @@ function ConnectionHandler(){
 		}
 		else{
 			// Command has more arguments
-			var dataSpl = data.split(" ");
-			if (dataSpl[0] == "lorem"){
-				// do stuff with dataSpl[1]
+			var dataSpl = data.split(".");
+			if (dataSpl[0] == "status") {
+				var code = dataSpl[1];
+				if (polls[code]){
+					var tosend = polls[code].status;
+					if (polls[code].status=="open"){ tosend+="."+polls[code].question }
+						connection.send(socket, tosend);
+				}
+				else { connection.send(socket, "pollnotfound"); }
 			}
-			else { connection.send(socket, "cmderr"); }
+			else if (dataSpl[0] == "answer") {
+				var code = dataSpl[1];
+				if (polls[code]){
+					if (polls[code].status == "open"){
+						polls[code].answers.push(dataSpl[2]);
+						connection.send(socket, "success");
+					}
+					else{ connection.send(socket, "pollclosed"); }
+				}
+				else { connection.send(socket, "pollnotfound"); }
+			}
+			else {
+				connection.send(socket, "cmderr");
+				console.log(dataSpl);
+			}
 		}
 	}
 
@@ -169,10 +232,10 @@ function ConnectionHandler(){
 	this.broadcast = function(message){
 		for(var i = 0; i<connection.connections.length; i++){
 			if (connection.connections[i] != null){
-				connection.connections[i].write(""+message+"#");
+				connection.connections[i].write(""+message);
 			}
 		}
-		console.log("s->all : "+message+"#");
+		console.log("s->all : "+message);
 	}
 }
 // Commands

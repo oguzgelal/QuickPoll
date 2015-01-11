@@ -10,6 +10,10 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var ipadress: UITextField!
+    @IBOutlet weak var portnumber: UITextField!
+    @IBOutlet weak var presentationcode: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +23,15 @@ class MainViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let dest = segue.destinationViewController as PollViewController
+            dest.ipadress = ipadress.text
+            dest.portnumber = portnumber.text
+            dest.presentationcode = presentationcode.text
 
+
+    }
 
 }
 
